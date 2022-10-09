@@ -1,5 +1,6 @@
 package com.example.asyncthread
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -7,22 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.concurrent.thread
 
-class MainActivity : AppCompatActivity() {
-    val TAG = "MainActivity"
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        setContentView(R.layout.activity_main)
+fun main(): Unit = runBlocking {
 
-        GlobalScope.launch {
-            delay(3000L)
-            Log.d(TAG, "Coroutine works ${Thread.currentThread().name}")
-        }
-        Log.d(TAG, "Hello From Main Thread ${Thread.currentThread().name}")
+    launch {
+        delay(3000L)
+        println("world")
     }
-}
+    println("Hello")
+    }
 
-object LoadHelper {
+/*object LoadHelper {
     private var progress: Int = 0
     private fun startLoading() {
         thread {
@@ -57,4 +55,4 @@ object LoadHelper {
         startLoading()
         updateProgressBar()
     }
-}
+}*/
