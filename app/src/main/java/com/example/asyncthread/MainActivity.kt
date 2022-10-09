@@ -1,11 +1,25 @@
 package com.example.asyncthread
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
-fun main() {
-    LoadHelper.load()
+class MainActivity : AppCompatActivity() {
+    val TAG = "MainActivity"
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        setContentView(R.layout.activity_main)
+
+        GlobalScope.launch {
+            delay(3000L)
+            Log.d(TAG, "Coroutine works ${Thread.currentThread().name}")
+        }
+        Log.d(TAG, "Hello From Main Thread ${Thread.currentThread().name}")
+    }
 }
 
 object LoadHelper {
@@ -37,8 +51,6 @@ object LoadHelper {
         }
         str.append("$progress %")
         return str.toString()
-
-
     }
 
     fun load() {
